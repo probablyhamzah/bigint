@@ -1,18 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-#define SIZE 309
-
-struct bigInt
-{
-    int size;
-    int sign;
-    char* val;
-};
-
-struct bigInt add(struct bigInt* num1, struct bigInt* num2);
-struct bigInt subtract(struct bigInt* num1, struct bigInt* num2);
+#include "bigint.h"
 
 void print(struct bigInt* data)
 {
@@ -322,38 +308,4 @@ struct bigInt multiply(struct bigInt* num1, struct bigInt* num2)
     else
         total.sign = 1;
     return total;
-}
-
-int main()
-{
-
-    char s1[SIZE + 2], s2[SIZE + 2];
-
-    printf("Enter the first number: ");
-    scanf("%s", s1);
-
-    printf("Enter the second number: ");
-    scanf("%s", s2);
-    
-    struct bigInt int1, int2, int3;
-    int1 = convert(s1);
-    int2 = convert(s2);
-
-    printf("Addition:\n");
-    int3 = add(&int1, &int2);
-    print(&int3);
-
-    printf("\nSubtraction:\n");
-    free(int3.val);
-    int3 = subtract(&int1, &int2);
-    print(&int3);
-
-    printf("\nMultiplication:\n");
-    free(int3.val);
-    int3 = multiply(&int1, &int2);
-    print(&int3);
-
-    free(int1.val);
-    free(int2.val);
-    free(int3.val);
 }
