@@ -78,7 +78,8 @@ struct bigInt add(struct bigInt* num1, struct bigInt* num2)
 {    
     struct bigInt total;
     init(&total, SIZE, 0);
-    
+
+    // Take care of + and - cases
     if(num1->sign != num2->sign)
     {
         num2->sign = !num2->sign;
@@ -88,6 +89,9 @@ struct bigInt add(struct bigInt* num1, struct bigInt* num2)
     }
     
     int i = 0, carry = 0;
+
+    // Add the corresponding values of the digits along with the carry
+    // and manage the carry value.
     while(i < num1->size && i < num2->size)
     {
         int sum = num1->val[i] + num2->val[i] + carry;
@@ -99,6 +103,9 @@ struct bigInt add(struct bigInt* num1, struct bigInt* num2)
         ++i;
     }
 
+    // If the size of num1 is greater than that of num2, we'll be left with
+    // digits that we haven't iterated through. In this case iterate through
+    // them adding just the carry.
     while(i < num1->size)
     {
         int sum = num1->val[i] + carry;
@@ -109,6 +116,11 @@ struct bigInt add(struct bigInt* num1, struct bigInt* num2)
         ++total.size;
         ++i;
     }
+
+    // Similary for the case when num2 is greater than num1.
+    // Since either num1 > num2 or num2 > num1, we can assure that either one
+    // of this or the previous one would run but not both. Neither in the case
+    // of num1 = num2
     while(i < num2->size)
     {
         int sum = num2->val[i] + carry;
@@ -120,12 +132,14 @@ struct bigInt add(struct bigInt* num1, struct bigInt* num2)
         ++i;
     }
 
+    // If we're left with a carry, append it to the end.
     if(carry != 0)
     {
         total.val[i] = carry;
         ++total.size;
     }
 
+    // Assign the appropriate sign to the total
     if(num1->sign == 1 && num2->sign == 1)
         total.sign = 1;
     else
