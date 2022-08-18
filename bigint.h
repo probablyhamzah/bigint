@@ -81,7 +81,8 @@ struct bigInt add(struct bigInt* num1, struct bigInt* num2);
   +a, +b: if a < b, swap a and b
   -a, -b: if a < b, swap a and b
 
-  Note that for the same case, that is, one positive number and one negative number, we call subtract() from add() and vice versa. This leads to an infinite loop.
+  Note that for the same case, that is, one positive number and one negative number, we call subtract() from add() and vice versa. 
+  This leads to an infinite loop.
   To avoid this we flip the sign bit of b and the operation is carried appropriately.
 */
 struct bigInt subtract(struct bigInt* num1, struct bigInt* num2);
